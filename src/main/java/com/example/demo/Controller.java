@@ -16,6 +16,11 @@ public class Controller {
     @Autowired
     RestClient restClient;
 
+    @GetMapping("/")
+    public String index() {
+        return "Hello Java :)";
+    }
+
     @GetMapping("/hello")
     public String hello() throws Exception {
         if (appKilled) {
