@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Spring boot app</title>
+    <style type="text/css">
+            input {
+                margin-right: 8px;
+            }
+            input#intVal {
+                width: 115px;
+            }
+
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        Interval: <input type="text" value="1000" placeholder="Interval" id="intVal">
+    </div>
+    <div style="margin-top:10px;">
+        <input type="button" value="Start" id="startBtn"/>
+        <input type="button" value="Stop" id="stopBtn"/>
+        <input type="button" value="Kill App" id="killBtn"/>
+    </div>
+    <div id="result" style="margin-top:10px;"></div>
+</div>
+
+<script type="text/javascript">
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const resultDiv = document.getElementById('result');
+            const killBtn = document.getElementById('killBtn');
+
+            let interval = undefined;
+            let intVal = document.getElementById('intVal').value
+            if(intVal < 500)    intVal = 1000;
+
+            const url = '/checkService';
+            const killUr; = '/kill';
+
+            killBtn.addEventListener('click', function(){
+                let div = document.createElement('div');
+                    fetch(url)
+                        .then(r=>r.text())
+                        .then(r=>{
+                            div.append(r);
+                            resultDiv.append(div);
+                        });
+            });
+
+
+            startBtn.addEventListener('click', function(){
+                resultDiv.innerHTML = "";
+                interval = setInterval(function(){
+                    let div = document.createElement('div');
+                    fetch(url)
+                        .then(r=>r.text())
+                        .then(r=>{
+                            div.append(r);
+                            resultDiv.append(div);
+                        });
+                }, intVal);
+            });
+
+            stopBtn.addEventListener('click', function(){
+                clearInterval(interval);
+            })
+
+</script>
+</body>
+</html>

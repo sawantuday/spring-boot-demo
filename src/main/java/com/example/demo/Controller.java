@@ -54,4 +54,9 @@ public class Controller {
         return restClient.checkService();
     }
 
+    @GetMapping("/killRemote")
+    public String killService() {
+        return restClient.killService();
+    }
+
 }

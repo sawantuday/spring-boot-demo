@@ -17,8 +17,11 @@ public class RestClient {
     @Autowired
     RestTemplate restTemplate;
 
-    @Value("${service.uri}")
+    @Value("${service.health.uri}")
     String serviceUri;
+
+    @Value("${service.kill.uri}")
+    String killUri;
 
     private static final Logger log = LoggerFactory.getLogger(RestClient.class);
 
@@ -35,7 +38,13 @@ public class RestClient {
         return s;
     }
 
-    //	@Scheduled(fixedDelay = 1000, initialDelay = 5000)
+    public String killService() {
+        String s = restTemplate.getForObject(killUri, String.class);
+        log.info("Data received - {}", s);
+        return s;
+    }
+
+    //    @Scheduled(fixedDelay = 1000, initialDelay = 5000)
     public void test() {
         try {
             String s = restTemplate.getForObject(serviceUri, String.class);
