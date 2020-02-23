@@ -35,18 +35,17 @@
             if(intVal < 500)    intVal = 1000;
 
             const url = '/checkService';
-            const killUrl = '/kill';
+            const killUrl = '/killRemote';
 
             killBtn.addEventListener('click', function(){
                 let div = document.createElement('div');
-                    fetch(url)
+                    fetch(killUrl)
                         .then(r=>r.text())
                         .then(r=>{
                             div.append(r);
                             resultDiv.append(div);
                         });
             });
-
 
             startBtn.addEventListener('click', function(){
                 resultDiv.innerHTML = "";
